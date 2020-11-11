@@ -92,6 +92,7 @@ GEM
     faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
     ffi (1.13.1)
+    foreman (0.87.2)
     friendly_id (5.4.1)
       activerecord (>= 4.0.0)
     globalid (0.4.2)
@@ -262,6 +263,7 @@ DEPENDENCIES
   byebug
   capybara (>= 2.15)
   devise (~> 4.7, >= 4.7.2)
+  foreman
   friendly_id (~> 5.3)
   hirb
   jbuilder (~> 2.7)
