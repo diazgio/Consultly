@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def readable_time(time)
-    ime.strftime("%b %d, %I:%M%P")
+    time.strftime("%b %d, %I:%M%P")
   end
 
   def author_of(record)
