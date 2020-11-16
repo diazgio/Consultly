@@ -19,11 +19,7 @@
         <tr>
           <% week.each do |day| %>
             <%= content_tag :td, class: calendar.td_classes_for(day) do %>
-              <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(passed_block) %>
-                <% capture_haml(day, sorted_events.fetch(day, []), &passed_block) %>
-              <% else %>
-                <% passed_block.call day, sorted_events.fetch(day, []) %>
-              <% end %>
+               <span class="text-sm text-gray-600"><% passed_block.call day.strftime("%d"), sorted_events.fetch(day, []) %></span>
             <% end %>
           <% end %>
         </tr>

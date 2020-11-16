@@ -3,9 +3,11 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
+//= require trix
+
+
 require("@rails/ujs").start()
 require("turbolinks").start()
-require("trix")
 require("@rails/activestorage").start()
 require("channels")
 

@@ -281,7 +281,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   stripe (~> 4.0, >= 4.0.2)
-  trix (~> 0.9.9)
+  trix
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 3.3.0)
