@@ -1,17 +1,38 @@
-<p>
-  <strong>Name:</strong>
-  <%= @meeting.name %>
-</p>
+<div class="max-w-6xl my-10 m-auto">
+  <div class="p-10 bg-white border border-grey-light rounded">
 
-<p>
-  <strong>Start time:</strong>
-  <%= @meeting.start_time %>
-</p>
+    <div class="flex flex-wrap justify-between items-center mb-5">
+      <h1><%= @meeting.name %></h1>
+      <%= link_to "Cancel Meeting", meeting_path(@meeting), method: :delete, data: { confirm: "Are you sure you want to cancel? "}, class: "btn btn-destroy" if admin? %>
+    </div>
 
-<p>
-  <strong>End time:</strong>
-  <%= @meeting.end_time %>
-</p>
+    <div class="border p-6 bg-gray-300 mb-5 flex items-center justify-between">
 
-<%= link_to 'Edit', edit_meeting_path(@meeting) %> |
-<%= link_to 'Back', meetings_path %>
+      <p class="border-2 py-3 px-4 border-indigo-600 rounded-full text-sm text-indigo-900">
+        Start time: <span class="font-bold"><%= readable_time(@meeting.start_time) %></span>
+      </p>
+
+      <div class="border-t-2 border-indigo-400 border-dashed h-1 w-6 flex-1"></div>
+
+      <p class="border-2 py-3 px-4 border-indigo-600 rounded-full text-sm text-indigo-900">
+        End time: <span class="font-bold"><%= readable_time(@meeting.end_time) %></span>
+      </p>
+
+    </div>
+
+    <h4>Comments</h4>
+    <hr class="border" />
+
+    <% unless user_signed_in? %>
+      <div class="bg-grey-lighter rounded p-4 mt-4 text-center">
+        <p class="text-sm text-grey-dark"><%= link_to "Login", new_user_session_path, class: "link" %> or <%= link_to "Sign up", new_user_regsitration_path, class: "link" %> to comment.</p>
+      </div>
+    <% else %>
+        <%#= render 'comments/form' %>
+    <% end %>
+
+    <div id="comments">
+      <%#= render @meeting.comments %>
+    </div>
+  </div>
+</div>
