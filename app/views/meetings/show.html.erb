@@ -28,7 +28,7 @@
         <p class="text-sm text-grey-dark"><%= link_to "Login", new_user_session_path, class: "link" %> or <%= link_to "Sign up", new_user_regsitration_path, class: "link" %> to comment.</p>
       </div>
     <% else %>
-        <%#= render 'comments/form' %>
+        <%= render 'comments/form' %>
     <% end %>
 
     <div id="comments">
