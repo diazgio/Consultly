@@ -7,4 +7,5 @@ has_person_name
          :recoverable, :rememberable, :validatable
   
 has_many :meetings, dependent: :destroy
+has_many :comments, dependent: :destroy
 end

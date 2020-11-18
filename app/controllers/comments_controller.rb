@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_comment, only: %i[create destroy]
+  before_action :set_comment, only: %i[edit update show destroy]
   before_action :set_meeting
 
   def def new
@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
   private
 
   def set_meeting
-    @meeting = Meeting.find(params[:meeing_id])
+    @meeting = Meeting.find(params[:meeting_id])
   end
 
   def set_comment
