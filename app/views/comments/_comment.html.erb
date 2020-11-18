@@ -2,7 +2,7 @@
   <div class="flex-1 pl-4 flex items-start justify-between">
     <div class="leading-normal">
       <p class="text-gray-500 text-xs"><%= comment.user.name %> commented <%= time_ago_in_words(comment.created_at) %> ago</p>
-      <div class="text-gray-700"><%= sanitize comment.reply %></div>
+      <div class="text-gray-700"><%= comment.body %></div>
     </div>
 
     <% if author_of(comment) %>

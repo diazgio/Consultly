@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @meeting.comments.create(params[:comment].permit(:reply, :meeting_id))
+    @comment = @meeting.comments.create(params[:comment].permit(:reply, :body, :meeting_id))
     @comment.user_id = current_user.id
 
     respond_to do |format|
@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:reply)
+    params.require(:comment).permit(:reply, :body)
   end
   
 end
