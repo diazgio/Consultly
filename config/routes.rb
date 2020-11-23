@@ -11,5 +11,7 @@ Rails.application.routes.draw do
 
 
   devise_for :users
+  get 'active-sessions', to: 'meetings#active_sessions'
   root to: 'home#index'
+  resources :users, only: %i[index]
 end

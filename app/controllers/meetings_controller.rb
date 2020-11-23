@@ -1,7 +1,7 @@
 class MeetingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_meeting, only: %i[show edit update destroy]
-  before_action :must_be_admin, only: [:active_sessions]
+  before_action :must_be_admin, only: %i[active_sessions]
 
   # GET /meetings
   # GET /meetings.json
@@ -92,6 +92,10 @@ class MeetingsController < ApplicationController
       format.html { redirect_to meetings_url, notice: 'Meeting was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def active_sessions
+    @active_sessions = Meeting.where("end_time > ?", Time.now)
   end
 
   private
