@@ -62,6 +62,7 @@ gem 'name_of_person', '~> 1.1', '>= 1.1.1'
 #consultly specifics
 gem 'better_errors'
 gem 'simple_calendar', '~> 2.4', '>= 2.4.1'
+gem "money-rails"
 gem 'trix'
 gem 'stripe', '~> 4.0', '>= 4.0.2'
 gem 'hirb'

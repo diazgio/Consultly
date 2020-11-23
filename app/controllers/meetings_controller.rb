@@ -1,11 +1,16 @@
 class MeetingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_meeting, only: %i[show edit update destroy]
+  before_action :must_be_admin, only: [:active_sessions]
 
   # GET /meetings
   # GET /meetings.json
   def index
-    @meetings = current_user.meetings.all
+    if current_user.admin?
+      @meetings = Meeting.all
+    else
+      @meetings = current_user.meetings.where(user_id: current_user)
+    end
   end
 
   # GET /meetings/1
@@ -29,6 +34,26 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.new(meeting_params)
     @meeting.user_id = current_user.id
 
+    token = params[:stripeToken]
+    card_brand = params[:user][:card_brand]
+    card_exp_month = params[:user][:card_exp_month]
+    card_exp_year = params[:user][:card_exp_year]
+    card_last4 = params[:user][:card_last4]
+
+    charge = Stripe::Charge.create(
+      amount: 19900,
+      currency: "usd",
+      description: "Consultly",
+      source: token
+    )
+
+    current_user.stripe_id = charge.id
+    current_user.card_brand = card_brand
+    current_user.card_exp_month = card_exp_month
+    current_user.card_exp_year = card_exp_year
+    current_user.card_last4 = card_last4
+    current_user.save
+
     respond_to do |format|
       if @meeting.save
         format.html { redirect_to @meeting, notice: 'Meeting was successfully created.' }
@@ -38,6 +63,11 @@ class MeetingsController < ApplicationController
         format.json { render json: @meeting.errors, status: :unprocessable_entity }
       end
     end
+
+    rescue Stripe::CardError => e
+      flash.alert = e.message
+      render action: :new
+  
   end
 
   # PATCH/PUT /meetings/1
@@ -70,8 +100,14 @@ class MeetingsController < ApplicationController
       @meeting = Meeting.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
       params.require(:meeting).permit(:name, :start_time, :end_time, :user_id)
+    end
+
+    def must_be_admin
+      unless current_user.admin?
+        redirect_to meetings_path, alert: "You don't have access to this page"
+      end
     end
 end

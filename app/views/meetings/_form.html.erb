@@ -1,5 +1,5 @@
-<div class='p-10 bg-white border border-grey-light rounded'>
-  <%= form_with(model: meeting, local: true) do |form| %>
+<div class='p-10 bg-white border border-gray-400 rounded'>
+  <%= form_with(model: meeting, local: true, class: "meeting-form") do |form| %>
     <% if meeting.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
@@ -12,28 +12,31 @@
       </div>
     <% end %>
 
-    <h3 class='mb-4 text-indigo-900'>Meeting Information</h3>
+    <h3 class='mb-4 text-indigo-900 font-black'>Meeting Information</h3>
 
     <div class="mb-6">
       <%= form.label :name %>
-      <%= form.text_field :name %>
+      <%= form.text_field :name, class: 'border border-gray-600 rounded' %>
     </div>
 
     <div class="mb-6">
       <%= form.label :start_time, class:'label' %>
-      <div class='flex items-center justify-between max-w-md'>
-        <%= form.datetime_select :start_time, { start_day: Date.today, start_year: Date.today.year, minute_step: 15 }, { class: 'select p-2 mr-2'} %>
+      <div class='flex items-center justify-between bg-indigo-300 max-w-full p-2 '>
+        <%= form.datetime_select :start_time, { start_day: Date.today, start_year: Date.today.year, minute_step: 15 }, { class: 'select p-2 mx-2'} %>
       </div>
     </div>
 
     <div class="mb-6">
       <%= form.label :end_time, class: 'label' %>
-      <div class='flex items-center justify-between max-w-md'>
-        <%= form.datetime_select :end_time, { start_day: Date.today, start_year: Date.today.year, minute_step: 15 }, { class: "select py-2 px-2 mr-2" } %>
+      <div class='flex items-center justify-between bg-indigo-300 max-w-full p-2 m-0'>
+        <%= form.datetime_select :end_time, { start_day: Date.today, start_year: Date.today.year, minute_step: 15 }, { class: "select py-2 px-2 mx-2" } %>
       </div>
     </div>
 
+
     <hr class="border" />
+
+    <%= render "payment_form" %>
 
     <div class="actions flex items-center justify-center mt-2">
       <%= form.submit class: "btn btn-indigo text-base py-3 px-5" %>
