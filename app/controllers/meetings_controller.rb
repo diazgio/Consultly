@@ -52,7 +52,7 @@ class MeetingsController < ApplicationController
     current_user.card_exp_month = card_exp_month
     current_user.card_exp_year = card_exp_year
     current_user.card_last4 = card_last4
-    current_user.save
+    current_user.save!
 
     respond_to do |format|
       if @meeting.save
